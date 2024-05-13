@@ -1,18 +1,32 @@
 <?php
 include "koneksi.php";
-$id_pegawai	    = $_POST['id_pegawai'];
-$nama_menu	    = $_POST['nama_menu'];
-$id_jenis_menu  = $_POST['id_jenis_menu'];
-// $harga       = $_POST['harga'];
-$harga = str_replace(',','', mysqli_escape_string($koneksi, $_POST['harga']));
 
-$sql 		= "SELECT * FROM tbl_menu a WHERE nama_menu = '$nama_menu'";
-$query 	= mysqli_query($koneksi, $sql);
-if(mysqli_num_rows($query)>0){
-  header("location:menu.php?hasil=4");
-}else{
-  $sql = "INSERT INTO tbl_menu(nama_menu, id_jenis_menu, harga, id_pegawai) VALUES('$nama_menu', '$id_jenis_menu', '$harga', '$id_pegawai')";
-  mysqli_query($koneksi, $sql);
-  header("location:menu.php?hasil=1");
+function uploadImage($fieldName)
+{
+  if (isset($_FILES[$fieldName]) && $_FILES[$fieldName]['error'] === 0) {
+    $imageData = file_get_contents($_FILES[$fieldName]['tmp_name']);
+    $base64Image = base64_encode($imageData);
+    return $base64Image;
+  } else {
+    return false; // File upload error
+  }
 }
-?>
+
+$photo = uploadImage('foto-menu');
+if ($photo) {
+  $id_pegawai = mysqli_escape_string($koneksi, $_POST['id_pegawai']);
+  $nama_menu = mysqli_escape_string($koneksi, $_POST['nama_menu']);
+  $id_jenis_menu = mysqli_escape_string($koneksi, $_POST['id_jenis_menu']);
+  $harga = str_replace(',', '', mysqli_escape_string($koneksi, $_POST['harga']));
+
+  $sql = "INSERT INTO tbl_menu(nama_menu, photo, id_jenis_menu, harga, id_pegawai) VALUES('$nama_menu', '$photo', '$id_jenis_menu', '$harga', '$id_pegawai')";
+
+  $query   = mysqli_query($koneksi, $sql);
+  if ($query) {
+    header("location:menu.php?hasil=1");
+  } else {
+    echo "Error: " . mysqli_error($koneksi);
+  }
+} else {
+  echo "Error uploading image.";
+}

@@ -9,8 +9,10 @@ $sql = "INSERT INTO tbl_login(id_pegawai, username, password) VALUES('$id_pegawa
 $hsl = mysqli_query($koneksi, $sql);
 if($hsl==1){
   header("location:login.php?hasil=1");
-}else{
+}elseif($hsl==4){
   header("location:login.php?hasil=4");
+}else{
+  echo "Data gagal diinput!";
 }
 
 ?>

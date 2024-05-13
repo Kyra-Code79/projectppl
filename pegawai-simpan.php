@@ -15,7 +15,10 @@ echo $hsl = mysqli_query($koneksi, $sql);
 if($hsl==1){
   move_uploaded_file($_FILES['photo']['tmp_name'], "photo/".$photo);
   header("location:pegawai.php?hasil=1");
-}else{
+}elseif($hsl==4){
   header("location:pegawai.php?hasil=4");
+}else{
+  echo "<br>";
+  echo "BUG!!";
 }
 ?>

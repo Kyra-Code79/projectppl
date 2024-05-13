@@ -1,12 +1,12 @@
 <?php
-  date_default_timezone_set("Asia/Jakarta");
-  $tglHariIni = date('Y-m-d');
+date_default_timezone_set("Asia/Jakarta");
+$tglHariIni = date('Y-m-d');
 
-  session_start();
-  $id_pegawai   = $_SESSION['id_pegawai'];
-  $nama_pegawai = $_SESSION['nama_pegawai'];
-  $jabatan      = $_SESSION['jabatan'];
-  $photo        = $_SESSION['photo'];
+session_start();
+$id_pegawai   = $_SESSION['id_pegawai'];
+$nama_pegawai = $_SESSION['nama_pegawai'];
+$jabatan      = $_SESSION['jabatan'];
+$photo        = $_SESSION['photo'];
 ?>
 
 <!DOCTYPE html>
@@ -42,19 +42,19 @@
     <script src="js/style.js"></script>
 
     <style>
-    tr>td {
-        vertical-align: middle !important;
-    }
+        tr>td {
+            vertical-align: middle !important;
+        }
 
-    .lebar {
-        height: 30px !important;
-        font-size: 14px;
-        width: 130px;
-    }
+        .lebar {
+            height: 30px !important;
+            font-size: 14px;
+            width: 130px;
+        }
 
-    .transaksiAksi2:hover {
-        cursor: pointer;
-    }
+        .transaksiAksi2:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -77,131 +77,132 @@
             </li>
 
             <?php
-        if (($jabatan == "Admin" or $jabatan == "Manajer") and $jabatan != "Kasir") { ?>
-            <?php
-          if ($jabatan == "Admin") { ?>
-            <!-- User Login -->
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>User Login</span>
-                </a>
-            </li>
-            <?php
-          } else { ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Master</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- Pegawai -->
-                        <a class="collapse-item" href="pegawai.php">
-                            <i class="fas fa-fw fa-users"></i>
-                            <span>Employee</span>
+            if (($jabatan == "Admin" or $jabatan == "Manajer") and $jabatan != "Kasir") { ?>
+                <?php
+                if ($jabatan == "Admin") { ?>
+                    <!-- User Login -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">
+                            <i class="fas fa-fw fa-user"></i>
+                            <span>User Login</span>
                         </a>
+                    </li>
+                <?php
+                } else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Master</span>
+                        </a>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <!-- Pegawai -->
+                                <a class="collapse-item" href="pegawai.php">
+                                    <i class="fas fa-fw fa-users"></i>
+                                    <span>Employee</span>
+                                </a>
 
-                        <!-- Jenis Menu -->
-                        <a class="collapse-item" href="jenis-menu.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Dish Menu</span>
-                        </a>
+                                <!-- Jenis Menu -->
+                                <a class="collapse-item" href="jenis-menu.php">
+                                    <i class="fas fa-fw fa-clipboard-list"></i>
+                                    <span>Dish Menu</span>
+                                </a>
 
-                        <!-- Daftar Menu -->
-                        <a class="collapse-item" href="menu.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Menu List</span>
-                        </a>
+                                <!-- Daftar Menu -->
+                                <a class="collapse-item" href="menu.php">
+                                    <i class="fas fa-fw fa-clipboard-list"></i>
+                                    <span>Menu List</span>
+                                </a>
+
+                                <!-- Daftar Menu -->
+                                <a class="collapse-item" href="table.php">
+                                    <i class="fas fa-fw fa-clipboard-list"></i>
+                                    <span>Table List</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+            <?php
+                }
+            } ?>
+
+            <?php
+            if ($jabatan == "Kasir") { ?>
+                <!-- Transaksi -->
+                <li class="nav-item">
+                    <a class="nav-link" href="transaksi.php">
+                        <i class="fas fa-fw fa-clipboard-list"></i>
+                        <span>Transaction</span>
+                    </a>
+                </li>
+            <?php
+            } ?>
+
+            <?php
+            if ($jabatan == "Admin" or $jabatan == "Manajer" or $jabatan == "Kasir") { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="order-customer.php">
+                        <i class="fas fa-fw fa-clipboard-list"></i>
+                        <span>Order Customer</span>
+                    </a>
+                </li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if ($jabatan == "Manajer" or $jabatan == "Admin") { ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-edit"></i>
+                        <span>Reports</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                            <!-- Laporan pegawai -->
+                            <a class="collapse-item" href="laporan-pegawai.php">
+                                <i class="fas fa-fw fa-clipboard-list"></i>
+                                <span>Employee's Profile</span>
+                            </a>
+
+                            <!-- Laporan Jenis Menu -->
+                            <a class="collapse-item" href="laporan-jenis-menu.php">
+                                <i class="fas fa-fw fa-clipboard-list"></i>
+                                <span>Dish Menu Report</span>
+                            </a>
+
+                            <!-- Laporan Menu -->
+                            <a class="collapse-item" href="laporan-menu.php">
+                                <i class="fas fa-fw fa-clipboard-list"></i>
+                                <span>Menu Report</span>
+                            </a>
+
+                            <!-- Laporan Transaksi -->
+                            <a class="collapse-item" href="laporan-transaksi.php">
+                                <i class="fas fa-fw fa-clipboard-list"></i>
+                                <span>Transactions Report</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>Transaksi</li>
-            <a class="collapse-item" href="pegawai.php">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Proses1</span>
-            </a>
-            <?php
-          } 
-        }?>
+                </li>
 
             <?php
-        if ($jabatan == "Kasir") { ?>
-            <!-- Transaksi -->
-            <li class="nav-item">
-                <a class="nav-link" href="transaksi.php">
-                    <i class="fas fa-fw fa-clipboard-list"></i>
-                    <span>Transaction</span>
-                </a>
-            </li>
-            <?php
-        }?>
+            } ?>
 
             <?php
-        if ($jabatan == "Manajer" or $jabatan =="Admin") { ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-edit"></i>
-                    <span>Reports</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <!-- Laporan pegawai -->
-                        <a class="collapse-item" href="laporan-pegawai.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Employee's Profile</span>
-                        </a>
-
-                        <!-- Laporan Jenis Menu -->
-                        <a class="collapse-item" href="laporan-jenis-menu.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Dish Menu Report</span>
-                        </a>
-
-                        <!-- Laporan Menu -->
-                        <a class="collapse-item" href="laporan-menu.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Menu Report</span>
-                        </a>
-
-                        <!-- Laporan Transaksi -->
-                        <a class="collapse-item" href="laporan-transaksi.php">
-                            <i class="fas fa-fw fa-clipboard-list"></i>
-                            <span>Transactions Report</span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-
+            if ($jabatan == "Kasir") { ?>
+                <!-- Laporan Transaksi -->
+                <li class="nav-item">
+                    <a class="nav-link" href="laporan-transaksi.php">
+                        <i class="fas fa-fw fa-clipboard-list"></i>
+                        <span>Transactions Report</span>
+                    </a>
+                </li>
             <?php
-        }?>
+            } ?>
 
-            <?php
-        if ($jabatan == "Kasir") { ?>
-            <!-- Laporan Transaksi -->
-            <li class="nav-item">
-                <a class="nav-link" href="laporan-transaksi.php">
-                    <i class="fas fa-fw fa-clipboard-list"></i>
-                    <span>Transactions Report</span>
-                </a>
-            </li>
-            <?php
-        } ?>
-
-            <?php
-        if ($jabatan == "Admin" or $jabatan == "Manajer") { ?>
-            <!-- Log Pegawai -->
-            <li class="nav-item">
-                <a class="nav-link" href="log.php">
-                    <i class="fas fa-fw fa-clipboard-list"></i>
-                    <span>Employee's Log</span>
-                </a>
-            </li>
-            <?php
-        } ?>
 
         </ul>
         <!-- End of Sidebar -->
@@ -221,17 +222,14 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= ($nama_pegawai); ?> |
                                     <?= ($jabatan); ?></span>
                                 <img class="img-profile rounded-circle" src="photo/<?= $photo; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="logout.php" data-toggle="modal"
-                                    data-target="#logoutModal">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Logout</i>
                                 </a>
                             </div>

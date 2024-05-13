@@ -17,54 +17,46 @@ include "koneksi.php";
                             <!-- Tanggal -->
                             <div class="input-group mb-1">
                                 <span class="input-group-text lebar"> Date</span>
-                                <input type="date" name="tgl_transaksi" required autocomplete="off"
-                                    class="form-control form-control-sm" value="<?= $tglHariIni; ?>" required>
+                                <input type="date" name="tgl_transaksi" required autocomplete="off" class="form-control form-control-sm" value="<?= $tglHariIni; ?>" required>
                             </div>
 
                             <!-- Nama Menu -->
                             <div class="input-group mb-1">
-                                <select name="id_menu" id="id_menu"
-                                    class="form-control form-control-sm form-control-chosen" required>
+                                <select name="id_menu" id="id_menu" class="form-control form-control-sm form-control-chosen" required>
                                     <option value="" selected>~ Choose Menu ~</option>
                                     <?php
-                  include "koneksi.php";
-                  $sql = "SELECT * FROM tbl_menu ORDER BY nama_menu";
-                  $query = mysqli_query($koneksi, $sql);
-                  while ($data = mysqli_fetch_array($query)) { ?>
-                                    <option value=<?= $data['id_menu']; ?>> <?= $data['nama_menu']; ?> - Rp.
-                                        <?= number_format($data['harga']); ?> </option>
+                                    include "koneksi.php";
+                                    $sql = "SELECT * FROM tbl_menu ORDER BY nama_menu";
+                                    $query = mysqli_query($koneksi, $sql);
+                                    while ($data = mysqli_fetch_array($query)) { ?>
+                                        <option value=<?= $data['id_menu']; ?>> <?= $data['nama_menu']; ?> - Rp.
+                                            <?= number_format($data['harga']); ?> </option>
                                     <?php
-                  }
-                  ?>
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
                             <!-- Harga -->
                             <div class="input-group mb-1">
                                 <span class="input-group-text lebar">Price</span>
-                                <input type="text" name="harga" class="form-control form-control-sm money text-right"
-                                    id="harga" value="0" readonly required>
+                                <input type="text" name="harga" class="form-control form-control-sm money text-right" id="harga" value="0" readonly required>
                             </div>
 
                             <!-- Banyak / Qty -->
                             <div class="input-group mb-1">
                                 <span class="input-group-text lebar">Quantity</span>
-                                <input type="text" name="qty" id="qty" required
-                                    class="form-control form-control-sm text-right money angkaSemua" autocomplete="off"
-                                    placeholder="Input Quantity">
+                                <input type="text" name="qty" id="qty" required class="form-control form-control-sm text-right money angkaSemua" autocomplete="off" placeholder="Input Quantity">
                             </div>
 
                             <!-- No Meja -->
                             <div class="input-group mb-1">
                                 <span class="input-group-text lebar">No Table</span>
-                                <input type="text" name="no_meja" id="idMeja" required
-                                    class="form-control form-control-sm text-right money angkaSemua" autocomplete="off"
-                                    placeholder="Input No Table">
+                                <input type="text" name="no_meja" id="idMeja" required class="form-control form-control-sm text-right money angkaSemua" autocomplete="off" placeholder="Input No Table">
                             </div>
 
                             <div class="modal-footer">
-                                <a class="btn btn-primary btn-sm text-white" id="transaksiSimpan"><i
-                                        class="fas fa-plus"></i> Add</a>
+                                <a class="btn btn-primary btn-sm text-white" id="transaksiSimpan"><i class="fas fa-plus"></i> Add</a>
                             </div>
                         </form>
                     </div>
@@ -78,8 +70,7 @@ include "koneksi.php";
             <!-- Detail Transaksi -->
             <div class="col-7" style="margin-left:25px;">
                 <div class="card border-success mb-3">
-                    <div class="card-header bg-transparent border-success">No. Transaction - <span
-                            id="noTransaksiBaru"></span> </div>
+                    <div class="card-header bg-transparent border-success">No. Transaction - <span id="noTransaksiBaru"></span> </div>
                     <div class="card-body text-success">
                         <div class="tampilkanTransaksiDetail">
                             <table class="table">
@@ -101,28 +92,24 @@ include "koneksi.php";
                             <tr>
                                 <td>Total </td>
                                 <td style="float: right;">
-                                    <input type="text" id="totalTransaksi"
-                                        class="form-control form-control-sm text-right" readonly>
+                                    <input type="text" id="totalTransaksi" class="form-control form-control-sm text-right" readonly>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Total Payment</td>
                                 <td style="float: right;">
-                                    <input type="text" name="totalBayar" id="totalBayar"
-                                        class="form-control form-control-sm money angkaSemua text-right">
+                                    <input type="text" name="totalBayar" id="totalBayar" class="form-control form-control-sm money angkaSemua text-right">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Total Cashback</td>
                                 <td style="float: right;">
-                                    <input type="text" name="totalKembali"
-                                        class="form-control form-control-sm text-right" readonly>
+                                    <input type="text" name="totalKembali" class="form-control form-control-sm text-right" readonly>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td style="float: right;"><a class="btn btn-success btn-sm text-white mt-1"
-                                        id="transaksiBayar"><i class="fas  fa-dollar-sign"></i> Payment</a></td>
+                                <td style="float: right;"><a class="btn btn-success btn-sm text-white mt-1" id="transaksiBayar"><i class="fas  fa-dollar-sign"></i> Payment</a></td>
                             </tr>
                         </table>
                     </div>
@@ -135,179 +122,179 @@ include "koneksi.php";
 <?php include "footer.php"; ?>
 
 <script>
-$(document).ready(function() {
-    $(document).on('change', '#id_menu', function() {
-        var id_menu = $(this).val();
-        $.ajax({
-            method: 'POST',
-            data: {
-                id_menu: id_menu
-            },
-            url: 'transaksi-cari-ajax.php',
-            cache: false,
-            success: function(result) {
-                $('[name="harga"]').val(result);
+    $(document).ready(function() {
+        $(document).on('change', '#id_menu', function() {
+            var id_menu = $(this).val();
+            $.ajax({
+                method: 'POST',
+                data: {
+                    id_menu: id_menu
+                },
+                url: 'transaksi-cari-ajax.php',
+                cache: false,
+                success: function(result) {
+                    $('[name="harga"]').val(result);
+                }
+            });
+        });
+
+        // Simpan
+        $(document).on('click', '#transaksiSimpan', function() {
+            var idHarga = $('[name="harga"]').val();
+            var idQty = $('[name="qty"]').val();
+            var idMeja = $('[name="no_meja"]').val();
+
+            if (idHarga == "0" || idHarga == "") {
+                alert('Please choose the menu!');
+                $('[name="id_menu"]').focus();
+            } else if (idQty == "") {
+                alert('Fill the quantity!');
+                $('[name="qty"]').focus();
+            } else if (idMeja == "") {
+                alert('Fill the no. table!');
+                $('[name="idMeja"]').focus();
+            } else {
+                if (confirm('Data will be add?')) {
+                    var data = $('#transaksiMenu').serialize();
+                    $.ajax({
+                        method: 'POST',
+                        data: data,
+                        url: 'transaksi-simpan-ajax.php',
+                        cache: false,
+                        success: function(result) {
+                            var row = JSON.parse(result);
+                            var noTransaksi = row.no_transaksi;
+                            var numb = row.total_transaksi;
+                            const format = numb.toString().split('').reverse().join('');
+                            const convert = format.match(/\d{1,3}/g);
+                            const totalTransaksi = convert.join(',').split('').reverse().join(
+                                '');
+
+                            $('#noTransaksiBaru').text(noTransaksi);
+                            $("#no_transaksi").val(noTransaksi);
+                            $("#totalTransaksi").val(totalTransaksi);
+                            $("#id_menu").val('');
+                            $('#id_menu').trigger("chosen:updated");
+                            $("[name='harga']").val('0');
+                            $("#qty").val('');
+                            $("[name='no_meja']").attr('readonly', true);
+                            $("[name='tgl_transaksi']").attr('readonly', true);
+                            $('.tampilkanTransaksiDetail').load('transaksi-detail.php', {
+                                noTransaksi: noTransaksi
+                            });
+                        }
+                    });
+                } else {
+                    preventDefault();
+                }
             }
         });
-    });
 
-    // Simpan
-    $(document).on('click', '#transaksiSimpan', function() {
-        var idHarga = $('[name="harga"]').val();
-        var idQty = $('[name="qty"]').val();
-        var idMeja = $('[name="no_meja"]').val();
-
-        if (idHarga == "0" || idHarga == "") {
-            alert('Please choose the menu!');
-            $('[name="id_menu"]').focus();
-        } else if (idQty == "") {
-            alert('Fill the quantity!');
-            $('[name="qty"]').focus();
-        } else if (idMeja == "") {
-            alert('Fill the no. table!');
-            $('[name="idMeja"]').focus();
-        } else {
-            if (confirm('Data will be add?')) {
-                var data = $('#transaksiMenu').serialize();
-                $.ajax({
-                    method: 'POST',
-                    data: data,
-                    url: 'transaksi-simpan-ajax.php',
-                    cache: false,
-                    success: function(result) {
-                        var row = JSON.parse(result);
-                        var noTransaksi = row.no_transaksi;
-                        var numb = row.total_transaksi;
-                        const format = numb.toString().split('').reverse().join('');
-                        const convert = format.match(/\d{1,3}/g);
-                        const totalTransaksi = convert.join(',').split('').reverse().join(
-                            '');
-
-                        $('#noTransaksiBaru').text(noTransaksi);
-                        $("#no_transaksi").val(noTransaksi);
-                        $("#totalTransaksi").val(totalTransaksi);
+        // Hapus
+        $(document).on('click', '.transaksiAksi', function() {
+            var id_detail = $(this).attr('id');
+            $.ajax({
+                method: 'POST',
+                data: {
+                    id_detail: id_detail
+                },
+                url: 'transaksi-delete-ajax.php',
+                cache: false,
+                success: function(noTrans) {
+                    if (noTrans == 0) {
+                        var noTransaksi = 0;
+                        $('#noTransaksiBaru').text('');
+                        $("#no_transaksi").val('');
+                        $("#totalTransaksi").val('');
+                        $("#ttlTransaksi").val('');
                         $("#id_menu").val('');
                         $('#id_menu').trigger("chosen:updated");
                         $("[name='harga']").val('0');
                         $("#qty").val('');
-                        $("[name='no_meja']").attr('readonly', true);
-                        $("[name='tgl_transaksi']").attr('readonly', true);
-                        $('.tampilkanTransaksiDetail').load('transaksi-detail.php', {
-                            noTransaksi: noTransaksi
-                        });
+                        $("#idMeja").val('');
+                        $("[name='totalKembali']").val('');
+                        $('#totalBayar').val('');
+                        $("[name='no_meja']").attr('readonly', false);
+                        $("[name='tgl_transaksi']").attr('readonly', false);
+                    } else {
+                        var noTransaksi = noTrans.substring(0, 17);
+                        var ttl = noTrans.length;
+                        var numb = noTrans.substring(ttl, 17);
+
+                        const format = numb.toString().split('').reverse().join('');
+                        const convert = format.match(/\d{1,3}/g);
+                        const ttlTransaksi = convert.join(',').split('').reverse().join('');
+
+                        $("#totalTransaksi").val(ttlTransaksi);
                     }
-                });
-            } else {
-                preventDefault();
-            }
-        }
-    });
-
-    // Hapus
-    $(document).on('click', '.transaksiAksi', function() {
-        var id_detail = $(this).attr('id');
-        $.ajax({
-            method: 'POST',
-            data: {
-                id_detail: id_detail
-            },
-            url: 'transaksi-delete-ajax.php',
-            cache: false,
-            success: function(noTrans) {
-                if (noTrans == 0) {
-                    var noTransaksi = 0;
-                    $('#noTransaksiBaru').text('');
-                    $("#no_transaksi").val('');
-                    $("#totalTransaksi").val('');
-                    $("#ttlTransaksi").val('');
-                    $("#id_menu").val('');
-                    $('#id_menu').trigger("chosen:updated");
-                    $("[name='harga']").val('0');
-                    $("#qty").val('');
-                    $("#idMeja").val('');
-                    $("[name='totalKembali']").val('');
-                    $('#totalBayar').val('');
-                    $("[name='no_meja']").attr('readonly', false);
-                    $("[name='tgl_transaksi']").attr('readonly', false);
-                } else {
-                    var noTransaksi = noTrans.substring(0, 17);
-                    var ttl = noTrans.length;
-                    var numb = noTrans.substring(ttl, 17);
-
-                    const format = numb.toString().split('').reverse().join('');
-                    const convert = format.match(/\d{1,3}/g);
-                    const ttlTransaksi = convert.join(',').split('').reverse().join('');
-
-                    $("#totalTransaksi").val(ttlTransaksi);
-                }
-                $('.tampilkanTransaksiDetail').load('transaksi-detail.php', {
-                    noTransaksi: noTransaksi
-                });
-            }
-        });
-    });
-
-    // Bayar
-    $(document).on('click', '#transaksiBayar', function() {
-        var noTransaksi = $('#noTransaksiBaru').text();
-        var noTrans = "cetak_struk.php?no_transaksi=" + noTransaksi;
-        var totalTransaksi = $('#totalTransaksi').val();
-        var ttlTransaksi = totalTransaksi.replace(",", "");
-        var totalBayar = $('[name="totalBayar"]').val();
-        var ttlBayar = totalBayar.replaceAll(",", "");
-        var cetak = "cetak_struk";
-        if (ttlBayar != "" && parseInt(ttlBayar) >= parseInt(ttlTransaksi)) {
-            $.ajax({
-                method: 'POST',
-                data: {
-                    noTransaksi: noTransaksi,
-                    totalBayar: totalBayar
-                },
-                url: 'transaksi-bayar-ajax.php',
-                cache: false,
-                success: function() {
-                    var noTransaksi = "";
-                    $('#noTransaksiBaru').text('');
-                    $("#no_transaksi").val('');
-                    $("#totalTransaksi").val('');
-                    $("#id_menu").val('');
-                    $('#id_menu').trigger("chosen:updated");
-                    $("[name='harga']").val('0');
-                    $("#qty").val('');
-                    $("#idMeja").val('');
-                    $("[name='no_meja']").attr('readonly', false);
-                    $("[name='tgl_transaksi']").attr('readonly', false);
                     $('.tampilkanTransaksiDetail').load('transaksi-detail.php', {
                         noTransaksi: noTransaksi
                     });
-                    $("[name='totalBayar']").val('');
-                    $("[name='totalKembali']").val('');
-                    window.open(noTrans, '_blank');
-
-
                 }
+            });
+        });
 
-            })
-        }
+        // Bayar
+        $(document).on('click', '#transaksiBayar', function() {
+            var noTransaksi = $('#noTransaksiBaru').text();
+            var noTrans = "cetak_struk.php?no_transaksi=" + noTransaksi;
+            var totalTransaksi = $('#totalTransaksi').val();
+            var ttlTransaksi = totalTransaksi.replace(",", "");
+            var totalBayar = $('[name="totalBayar"]').val();
+            var ttlBayar = totalBayar.replaceAll(",", "");
+            var cetak = "cetak_struk";
+            if (ttlBayar != "" && parseInt(ttlBayar) >= parseInt(ttlTransaksi)) {
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        noTransaksi: noTransaksi,
+                        totalBayar: totalBayar
+                    },
+                    url: 'transaksi-bayar-ajax.php',
+                    cache: false,
+                    success: function() {
+                        var noTransaksi = "";
+                        $('#noTransaksiBaru').text('');
+                        $("#no_transaksi").val('');
+                        $("#totalTransaksi").val('');
+                        $("#id_menu").val('');
+                        $('#id_menu').trigger("chosen:updated");
+                        $("[name='harga']").val('0');
+                        $("#qty").val('');
+                        $("#idMeja").val('');
+                        $("[name='no_meja']").attr('readonly', false);
+                        $("[name='tgl_transaksi']").attr('readonly', false);
+                        $('.tampilkanTransaksiDetail').load('transaksi-detail.php', {
+                            noTransaksi: noTransaksi
+                        });
+                        $("[name='totalBayar']").val('');
+                        $("[name='totalKembali']").val('');
+                        window.open(noTrans, '_blank');
+
+
+                    }
+
+                })
+            }
+        });
+
+        // Kembali
+        $(document).on('keyup', '#totalBayar', function() {
+            var totalTransaksi = $('#totalTransaksi').val();
+            var ttlTransaksi = totalTransaksi.replace(",", "");
+            var totalBayar = $('#totalBayar').val();
+            var ttlBayar = totalBayar.replaceAll(",", "");
+            var a = parseInt(ttlTransaksi) - parseInt(ttlBayar);
+            const format = a.toString().split('').reverse().join('');
+            const convert = format.match(/\d{1,3}/g);
+            const b = convert.join(',').split('').reverse().join('');
+            $('[name="totalKembali"]').val(b);
+        });
+
+
     });
 
-    // Kembali
-    $(document).on('keyup', '#totalBayar', function() {
-        var totalTransaksi = $('#totalTransaksi').val();
-        var ttlTransaksi = totalTransaksi.replace(",", "");
-        var totalBayar = $('#totalBayar').val();
-        var ttlBayar = totalBayar.replaceAll(",", "");
-        var a = parseInt(ttlTransaksi) - parseInt(ttlBayar);
-        const format = a.toString().split('').reverse().join('');
-        const convert = format.match(/\d{1,3}/g);
-        const b = convert.join(',').split('').reverse().join('');
-        $('[name="totalKembali"]').val(b);
+    $('.form-control-chosen').chosen({
+        allow_single_deselect: true,
     });
-
-
-});
-
-$('.form-control-chosen').chosen({
-    allow_single_deselect: true,
-});
 </script>

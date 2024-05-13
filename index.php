@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login | Page</title>
 
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <!--<link href="assets/dist/css/signin.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="assets/dist/css/floating-labels.css">
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <!--<link href="assets/dist/css/signin.css" rel="stylesheet">-->
+        <link rel="stylesheet" href="assets/dist/css/floating-labels.css">
     <style>
     body {
         background-image: url("assets/brand/Kyra-1.svg");
